@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="head">
+        <div class="head_body container">
+          <div class="head_logo">LOGO</div>
+          <div class="head_todo">
+            <input
+              type="text"
+              @keyup.enter="addTask"
+              placeholder="Введите задачу"
+              v-model="todoTask"
+            />
+            <button v-on:click="addTask">add Task</button>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="main_body container">
+          <div class="main_todoList">
+            <div class="main_text">
+              <h1>To Do</h1>
+              <p>Задач: {{items.length}}</p>
+            </div>
+            <hr />
+            <div class="main_todo">
+              <li v-for="(item,index) in items">
+                <div>
+                  <input
+                    type="checkbox"
+                    :value="item"
+                    v-model="check"
+                    v-on:change="clickTodo(index,'need')"
+                  />
+                  <p>{{item.title}}</p>
+                </div>
+                <button v-on:click="items.splice(index,1)">remove</button>
+              </li>
+            </div>
+          </div>
+          <div class="main_doesList">
+            <div class="main_text">
+              <h1>Does</h1>
+              <p>Задач: {{check.length}}</p>
+            </div>
+            <hr />
+
+            <div class="main_complete main_todo">
+              <li v-for="(item,index) in check">
+                <div>
+                  <input
+                    type="checkbox"
+                    :value="item"
+                    v-model="items"
+                    v-on:change="clickDoes(index,'complete')"
+                    checked
+                  />
+                  <p>{{item.title}}</p>
+                </div>
+                <button v-on:click="check.splice(index,1)">remove</button>
+              </li>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="script/script.js"></script>
+  </body>
+</html>
